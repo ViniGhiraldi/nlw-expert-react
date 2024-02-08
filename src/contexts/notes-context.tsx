@@ -20,10 +20,18 @@ export const useNotesContext = () => {
 }
 
 export const NotesProvider = ({children}: {children: React.ReactNode}) => {
-    const [notes, setNotes] = useState<Note[]>([]);
+    const [notes, setNotes] = useState<Note[]>(() => {
+        const localNotes = localStorage.getItem('notes');
+        if(localNotes) return JSON.parse(localNotes) as Note[];
+        return [];
+    });
 
     const handleAddNote = useCallback((note: Note) => {
-        if(note.content) setNotes(currentValues => [note, ...currentValues]);
+        if(note.content) setNotes(currentValues => {
+            const newNotesValue = [note, ...currentValues];
+            localStorage.setItem('notes',JSON.stringify(newNotesValue));
+            return newNotesValue;
+        });
     }, [])
 
     return(
