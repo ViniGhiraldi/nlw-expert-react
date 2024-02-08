@@ -7,12 +7,12 @@ import { useCallback } from "react";
 
 export const InputMain = () => {
     const { handleOnChange } = useSearchContext();
-    const debounce = useDebounce(500);
+    const debounce = useDebounce();
 
     const handleOnChangeInput = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(event.currentTarget.value)
+        const val = event.currentTarget.value;
         debounce(() => {
-            handleOnChange(event.currentTarget.value);
+            handleOnChange(val);
         })
     }, [])
 

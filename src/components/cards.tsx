@@ -10,7 +10,7 @@ export const Cards = () => {
     const { notes } = useNotesContext();
 
     const notesList = useMemo(() => {
-        return notes.filter(note => note.content.includes(search));
+        return notes.filter(note => note.content.toLowerCase().includes(search.toLowerCase()));
     }, [notes, search])
 
     return(
