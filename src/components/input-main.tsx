@@ -17,6 +17,6 @@ export const InputMain = () => {
     }, [])
 
     return(
-        <Input className="text-4xl" placeholder="Busque em suas notas..." onChange={handleOnChangeInput} />
+        <Input className="text-2xl md:text-4xl" placeholder="Busque em suas notas..." onChange={handleOnChangeInput} />
     );
 }

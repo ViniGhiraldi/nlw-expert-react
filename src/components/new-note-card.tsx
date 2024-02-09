@@ -2,7 +2,7 @@
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { NoteCardComponents } from "./primitives/note-card-components";
-import { ArrowUpRight, X } from 'lucide-react';
+import { ArrowUpRight, Info, X } from 'lucide-react';
 import { toast } from "sonner";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNotesContext } from "@/contexts/notes-context";
@@ -105,10 +105,14 @@ export const NewNoteCard = () => {
                     <form className="flex flex-col flex-1">
                         <div className="flex-1 flex flex-col p-5">
                             <Dialog.Title className="text-slate-200 font-medium text-sm mb-3">Adicionar nota</Dialog.Title>
-                            {shouldShowOnboarding ?
-                                <textarea autoFocus ref={textareaRef} className="text-sm leading-6 text-slate-400 bg-transparent resize-none flex-1 outline-none" onChange={handleVoidText} />
-                                :
+                            {shouldShowOnboarding ? (
+                                <>
+                                    <textarea autoFocus ref={textareaRef} className="text-sm leading-6 text-slate-400 bg-transparent resize-none flex-1 outline-none" onChange={handleVoidText} />
+                                    <span className="text-xs flex items-center gap-2 text-slate-500 font-semibold tracking-tight"><Info className="size-4"/> Apague todo o conteúdo para voltar</span>
+                                </>
+                            ) : (
                                 <Dialog.Description className="text-slate-400 text-sm">Comece <button type="button" onClick={handleStartRecording} className="text-lime-400 hover:underline">gravando uma nota</button> em áudio ou se preferir <button type="button" onClick={() => setShouldShowOnboarding(true)} className="text-lime-400 hover:underline">utilize apenas texto</button>.</Dialog.Description>
+                            )
                             }
                         </div>
                         {isRecording ? (
