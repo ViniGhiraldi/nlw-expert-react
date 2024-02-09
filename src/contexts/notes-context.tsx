@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useCallback, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 interface Note{
     id: number;
@@ -21,13 +21,14 @@ export const useNotesContext = () => {
 }
 
 export const NotesProvider = ({children}: {children: React.ReactNode}) => {
-    const [notes, setNotes] = useState<Note[]>(() => {
+    const [notes, setNotes] = useState<Note[]>([]);
+
+    useEffect(() => {
         const localNotes = localStorage.getItem('notes');
         if(localNotes) {
-            return JSON.parse(localNotes);
+            setNotes(JSON.parse(localNotes));
         }
-        return [];
-    });
+    }, [])
 
     const handleAddNote = useCallback((note: Note) => {
         if(note.content) setNotes(currentValues => {

@@ -1,3 +1,5 @@
+'use client'
+
 export const speechRecognitionInstance = () => {
     const isSpeechRecognitionAPIAvailable = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
 
